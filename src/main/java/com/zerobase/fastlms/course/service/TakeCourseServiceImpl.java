@@ -27,8 +27,7 @@ public class TakeCourseServiceImpl implements TakeCourseService {
 
     private final TakeCourseRepository takeCourseRepository;
     private final TakeCourseMapper takeCourseMapper;
-    
-    
+
     @Override
     public List<TakeCourseDto> list(TakeCourseParam parameter) {
         
@@ -45,8 +44,6 @@ public class TakeCourseServiceImpl implements TakeCourseService {
         }
         
         return list;
-        
-        
     }
     
     @Override

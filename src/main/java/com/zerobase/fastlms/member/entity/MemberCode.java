@@ -22,6 +22,4 @@ public interface MemberCode {
      * 현재 탈퇴된 회원
      */
     String MEMBER_STATUS_WITHDRAW = "WITHDRAW";
-    
-    
 }

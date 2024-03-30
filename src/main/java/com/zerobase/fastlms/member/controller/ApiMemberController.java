@@ -26,8 +26,7 @@ import java.util.List;
 public class ApiMemberController {
     
     private final TakeCourseService takeCourseService;
-    
-    
+
     @PostMapping("/api/member/course/cancel.api")
     public ResponseEntity<?> cancelCourse(Model model
             , @RequestBody TakeCourseInput parameter

@@ -23,7 +23,6 @@ public interface MemberService extends UserDetailsService {
      */
     boolean sendResetPassword(ResetPasswordInput parameter);
     
-    
     /**
      * 회원 목록 리턴(관리자에서만 사용 가능)
      */
