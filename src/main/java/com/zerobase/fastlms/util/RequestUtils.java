@@ -2,7 +2,7 @@ package com.zerobase.fastlms.util;
 
 import javax.servlet.http.HttpServletRequest;
 
-public class RequestUtil {
+public class RequestUtils {
 
     public static String getUserAgent(HttpServletRequest request) {
         return request.getHeader("User-Agent");
