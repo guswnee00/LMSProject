@@ -14,9 +14,7 @@ public class UserAuthenticationFailureHandler extends SimpleUrlAuthenticationFai
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-        
-        
-        
+
         String msg = "로그인에 실패하였습니다.";
         
         if (exception instanceof InternalAuthenticationServiceException) {

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Data
-@Entity
+@Entity(name = "MEMBER")
 public class Member implements MemberCode {
     
     @Id

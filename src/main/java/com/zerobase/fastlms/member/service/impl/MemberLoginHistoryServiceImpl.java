@@ -1,31 +1,54 @@
 package com.zerobase.fastlms.member.service.impl;
 
+import com.zerobase.fastlms.admin.dto.MemberLoginHistoryDto;
+import com.zerobase.fastlms.member.entity.MemberLoginHistory;
+import com.zerobase.fastlms.member.repository.MemberLoginHistoryRepository;
 import com.zerobase.fastlms.member.service.MemberLoginHistoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-//TODO
 @RequiredArgsConstructor
 @Service
 public class MemberLoginHistoryServiceImpl implements MemberLoginHistoryService {
 
+    private final MemberLoginHistoryRepository historyRepository;
+
     @Override
-    public boolean save() {
-        return false;
+    public void save(String userId, String ip, String userAgent) {
+        this.historyRepository.save(
+                MemberLoginHistory.builder()
+                        .userId(userId)
+                        .logDt(LocalDateTime.now())
+                        .ip(ip)
+                        .userAgent(userAgent)
+                        .build()
+        );
     }
 
     @Override
-    public List<?> list() {
-        return null;
-    }
+    public List<MemberLoginHistoryDto> list(String userId) {
 
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
-    }
+        long totalCount = this.historyRepository.countByUserId(userId);
+        List<MemberLoginHistory> historyList = historyRepository.findByUserId(userId);
+        List<MemberLoginHistoryDto> historyDtoList = new ArrayList<>();
 
+        for (MemberLoginHistory history : historyList) {
+            historyDtoList.add(MemberLoginHistoryDto.of(history));
+        }
+        if (!CollectionUtils.isEmpty(historyList)) {
+            int i = 0;
+            for (MemberLoginHistoryDto x: historyDtoList) {
+                x.setTotalCount(totalCount);
+                x.setSeq(totalCount - i);
+                i++;
+            }
+        }
+
+        return historyDtoList;
+    }
 }
