@@ -1,6 +1,7 @@
 package com.zerobase.fastlms.admin.service;
 
 import com.zerobase.fastlms.admin.dto.BannerDto;
+import com.zerobase.fastlms.admin.entity.Banner;
 import com.zerobase.fastlms.admin.mapper.BannerMapper;
 import com.zerobase.fastlms.admin.model.BannerInput;
 import com.zerobase.fastlms.admin.model.BannerParam;
@@ -8,6 +9,7 @@ import com.zerobase.fastlms.admin.repository.BannerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -24,7 +26,20 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     public boolean add(BannerInput parameter) {
-        return false;
+        Banner banner = Banner.builder()
+                .bannerName(parameter.getBannerName())
+                .bannerUrl(parameter.getBannerUrl())
+                .openCase(parameter.getOpenCase())
+                .order(parameter.getOrder())
+                .displayYn(parameter.isDisplayYn())
+                .regDt(LocalDateTime.now())
+                .fileName(parameter.getFileName())
+                .urlFileName(parameter.getUrlFileName())
+                .build();
+
+        bannerRepository.save(banner);
+
+        return true;
     }
 
     @Override
@@ -39,7 +54,7 @@ public class BannerServiceImpl implements BannerService {
 
     @Override
     public BannerDto detail(long id) {
-        return null;
+        return bannerRepository.findById(id).map(BannerDto::of).orElse(null);
     }
 
     @Override
