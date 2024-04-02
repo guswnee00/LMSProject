@@ -1,6 +1,8 @@
 package com.zerobase.fastlms.admin.model;
 
-//TODO
-// -배너파라미터
-public class BannerParam {
+import lombok.Data;
+
+@Data
+public class BannerParam extends CommonParam {
+    String id;
 }

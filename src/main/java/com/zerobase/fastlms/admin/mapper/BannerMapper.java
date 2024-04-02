@@ -1,6 +1,7 @@
 package com.zerobase.fastlms.admin.mapper;
 
-//TODO
-// -배너매퍼
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
 public interface BannerMapper {
 }
