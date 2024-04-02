@@ -20,7 +20,7 @@ public class MemberLoginHistoryServiceImpl implements MemberLoginHistoryService 
 
     @Override
     public void save(String userId, String ip, String userAgent) {
-        this.historyRepository.save(
+        historyRepository.save(
                 MemberLoginHistory.builder()
                         .userId(userId)
                         .logDt(LocalDateTime.now())
@@ -33,7 +33,7 @@ public class MemberLoginHistoryServiceImpl implements MemberLoginHistoryService 
     @Override
     public List<MemberLoginHistoryDto> list(String userId) {
 
-        long totalCount = this.historyRepository.countByUserId(userId);
+        long totalCount = historyRepository.countByUserId(userId);
         List<MemberLoginHistory> historyList = historyRepository.findByUserId(userId);
         List<MemberLoginHistoryDto> historyDtoList = new ArrayList<>();
 
