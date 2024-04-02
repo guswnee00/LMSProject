@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Data
-@Entity(name = "TAKE_COURSE")
+@Entity
 public class TakeCourse implements TakeCourseCode {
     
     @Id
