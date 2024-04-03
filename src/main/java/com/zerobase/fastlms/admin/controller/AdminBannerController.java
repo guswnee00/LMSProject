@@ -5,9 +5,9 @@ import com.zerobase.fastlms.admin.model.BannerInput;
 import com.zerobase.fastlms.admin.model.BannerParam;
 import com.zerobase.fastlms.admin.service.BannerService;
 import com.zerobase.fastlms.course.controller.BaseController;
-import com.zerobase.fastlms.course.dto.CourseDto;
-import com.zerobase.fastlms.course.model.CourseInput;
+import com.zerobase.fastlms.util.FileUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
@@ -18,10 +18,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @Controller
 public class AdminBannerController extends BaseController {
@@ -69,10 +70,9 @@ public class AdminBannerController extends BaseController {
 
     //TODO
     // -banner에 맞게 수정하기
-    @PostMapping(value = {"/admin/course/add.do", "/admin/course/edit.do"})
+    @PostMapping(value = {"/admin/banner/add.do", "/admin/banner/edit.do"})
     public String addSubmit(Model model, HttpServletRequest request
-            , MultipartFile file
-            , CourseInput parameter) {
+            , MultipartFile file, BannerInput parameter) {
 
         String saveFilename = "";
         String urlFilename = "";
@@ -80,44 +80,44 @@ public class AdminBannerController extends BaseController {
         if (file != null) {
             String originalFilename = file.getOriginalFilename();
 
-            String baseLocalPath = "/Users/kyutaepark/Documents/sources/zerobase/fastlms/files";
-            String baseUrlPath = "/files";
+            String baseLocalPath = "/Users/hyunjulee/Desktop/zerobase/LMSProject/src/main/webapp/banner";
+            String baseUrlPath = "/banner";
 
-            String[] arrFilename = getNewSaveFile(baseLocalPath, baseUrlPath, originalFilename);
+            String[] arrFilename = FileUtil.getNewSaveFile(baseLocalPath, baseUrlPath, originalFilename);
 
             saveFilename = arrFilename[0];
             urlFilename = arrFilename[1];
 
             try {
                 File newFile = new File(saveFilename);
-                FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(newFile));
+                FileCopyUtils.copy(file.getInputStream(), Files.newOutputStream(newFile.toPath()));
             } catch (IOException e) {
                 log.info("############################ - 1");
                 log.info(e.getMessage());
             }
         }
 
-        parameter.setFilename(saveFilename);
-        parameter.setUrlFilename(urlFilename);
+        parameter.setFileName(saveFilename);
+        parameter.setUrlFileName(urlFilename);
 
         boolean editMode = request.getRequestURI().contains("/edit.do");
 
         if (editMode) {
             long id = parameter.getId();
-            CourseDto existCourse = courseService.getById(id);
+            BannerDto existCourse = bannerService.detail(id);
             if (existCourse == null) {
                 // error 처리
-                model.addAttribute("message", "강좌정보가 존재하지 않습니다.");
+                model.addAttribute("message", "배너정보가 존재하지 않습니다.");
                 return "common/error";
             }
 
-            boolean result = courseService.set(parameter);
+            boolean result = bannerService.update(parameter);
 
         } else {
-            boolean result = courseService.add(parameter);
+            boolean result = bannerService.add(parameter);
         }
 
-        return "redirect:/admin/course/list.do";
+        return "redirect:/admin/banner/list.do";
     }
 
 
