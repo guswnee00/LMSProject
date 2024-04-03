@@ -10,7 +10,7 @@ public class BannerInput {
     String bannerUrl;
 
     int openCase;
-    int order;
+    int sort;
     boolean displayYn;
 
     String fileName;

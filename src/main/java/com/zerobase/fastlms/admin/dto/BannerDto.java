@@ -19,7 +19,7 @@ public class BannerDto {
     String bannerUrl;
 
     int openCase;
-    int order;
+    int sort;
     boolean displayYn;
 
     LocalDateTime regDt;
@@ -41,7 +41,7 @@ public class BannerDto {
                 .bannerName(banner.getBannerName())
                 .bannerUrl(banner.getBannerUrl())
                 .openCase(banner.getOpenCase())
-                .order(banner.getOrder())
+                .sort(banner.getSort())
                 .displayYn(banner.isDisplayYn())
                 .regDt(banner.getRegDt())
                 .fileName(banner.getFileName())

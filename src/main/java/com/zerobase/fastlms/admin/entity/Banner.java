@@ -23,7 +23,7 @@ public class Banner {
     String bannerUrl;
 
     int openCase;
-    int order;
+    int sort;
     boolean displayYn;
 
     LocalDateTime regDt;

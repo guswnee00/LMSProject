@@ -42,7 +42,7 @@ public class BannerServiceImpl implements BannerService {
                 .bannerName(parameter.getBannerName())
                 .bannerUrl(parameter.getBannerUrl())
                 .openCase(parameter.getOpenCase())
-                .order(parameter.getOrder())
+                .sort(parameter.getSort())
                 .displayYn(parameter.isDisplayYn())
                 .regDt(LocalDateTime.now())
                 .fileName(parameter.getFileName())
@@ -65,7 +65,7 @@ public class BannerServiceImpl implements BannerService {
         banner.setBannerName(parameter.getBannerName());
         banner.setBannerUrl(parameter.getBannerUrl());
         banner.setOpenCase(parameter.getOpenCase());
-        banner.setOrder(parameter.getOrder());
+        banner.setSort(parameter.getSort());
         banner.setDisplayYn(parameter.isDisplayYn());
         banner.setFileName(parameter.getFileName());
         banner.setUrlFileName(parameter.getUrlFileName());
